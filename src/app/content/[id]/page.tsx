@@ -43,13 +43,17 @@ const CATEGORY_STYLES: Record<
   },
 };
 
-export default function ContentDetail({
+export default async function ContentDetail({
   params,
   searchParams,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  // ✅ Await params to satisfy Next.js 15 async typing
+  const resolvedParams = await params;
+  const id = resolvedParams.id;
+
   // ---- rebuild ?q=&cat= so Back goes to the SAME search state ----
   const qs = new URLSearchParams();
   const q = typeof searchParams.q === "string" ? searchParams.q.trim() : "";
@@ -60,9 +64,7 @@ export default function ContentDetail({
   const backHref = `/search${qs.toString() ? `?${qs.toString()}` : ""}`;
 
   // ---- find the item ----
-  const item = CONTENT.find((x) => x.id === params.id) as
-    | ContentItem
-    | undefined;
+  const item = CONTENT.find((x) => x.id === id) as ContentItem | undefined;
 
   if (!item) {
     return (
