@@ -1,41 +1,21 @@
+// app/layout.tsx
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
-
-const ibmPlexSans = IBM_Plex_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-ibm-plex-sans",
-});
-
-const geistSans = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
-});
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
-});
+import BottomNav from "@/components/BottomNav";
 
 export const metadata: Metadata = {
-  title: "DEV@Deakin",
-  description: "Secure Frontend Development with React",
+  title: "BalanceUp",
+  description: "Your daily balance, simplified.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${ibmPlexSans.variable} ${geistSans.variable} ${geistMono.variable}`}
-    >
-      <body className="bg-white text-black font-sans antialiased w-full min-h-screen">
-        {children}
+    <html lang="en">
+      <body className="bg-zinc-50 text-zinc-900 antialiased">
+        <div className="pb-16"> {/* extra bottom padding so content doesn’t hide behind nav */}
+          {children}
+        </div>
+        <BottomNav /> {/* 👈 Always visible on every page */}
       </body>
     </html>
   );
