@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect } from 'react';
-import PostForm from '@/components/NewPost/PostForm';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -33,7 +32,6 @@ export default function NewPostPage() {
           </Link>
         </div>
 
-        <PostForm />
       </main>
     </>
   );
